@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+<style> 
+body {
+  background-image: url("https://st.depositphotos.com/1086305/3184/i/600/depositphotos_31843785-stock-photo-traditional-farm.jpg"), url("paper.gif");
+  background-color: #cccccc;
+      background-position: center;
+  background-size: cover;
+}
+</style>
+</head>
+<body>
+ 
+</style>
+<head>
+    <title>Crop Predictor</title>
+</head>
+<form action="{{ url_for('main') }}" method="POST">
+    <fieldset>
+        <legend><b>Input values:</legend>
+        <b>% Disease:
+        <input name="% Disease" type="number" required>
+        <br>
+        <br> <b>Wellness_Condition:
+        <input name="Wellness_Condition" type="number" required>
+        <br>
+        <br> <b>Region_Troilo:
+        <input name="Region_Troilo" type="number" required>
+        <br>
+        <br>
+         <br> <b>HeatIndexC:
+        <input name="HeatIndexC" type="number" required>
+        <br>
+        <br>
+          <br>
+         <br> <b>DewPointC:
+        <input name="DewPointC" type="number" required>
+        <br>
+             <br>
+         <br> <b>WindChillC:
+        <input name="WindChillC" type="number" required>
+        <br>
+                 <br>
+         <br> sunHour:
+        <input name="sunHour" type="number" required>
+        <br>
+           <br>
+         <br> <b>Season_Fall:
+        <input name="Season_Fall" type="number" required>
+        <br>
+              <br>
+         <br> <b>Season_Spring:
+        <input name="Season_Spring" type="number" required>
+        <br>
+
+          <br> <b>Season_Summer:
+        <input name="Season_Summer" type="number" required>
+        <br>
+     
+             <br> <b>Season_Winter:
+        <input name="Season_Winter" type="number" required>
+        <br>
+          <br>
+    
+             <br> <b>Region_Goyena:
+        <input name="Region_Goyena" type="number" required>
+        <br>
+        <input type="submit">
+    </fieldset>
+</form>
+<br>
+<div class="result" align="center">
+    {% if result %}
+        {% for variable, value in original_input.items() %}
+            <b>{{ variable }}</b> : {{ value }}
+        {% endfor %}
+        <br>
+        <br> Predicted crop:
+           <p style="font-size:60px">{{ result }}</p>
+    {% endif %}
+</div>
+</html>
