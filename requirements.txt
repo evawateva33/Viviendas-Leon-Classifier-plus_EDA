@@ -1,3 +1,4 @@
+pandas
 django
 gunicorn
 django-heroku
