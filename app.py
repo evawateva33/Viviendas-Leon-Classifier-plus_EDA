@@ -1,19 +1,8 @@
-import sklearn
+
 import pickle 
 import pandas as pd  #Pandas for data pre-processing
  #Pickle for pickling (saving) the model 
 
-from sklearn.feature_extraction.text import CountVectorizer #To Vectorize the textual data 
-
-from sklearn.naive_bayes import MultinomialNB #The algorithm for prediction 
-
- #Alternative Usage of Saved Model 
-
-from sklearn.model_selection import train_test_split #Validation split
-# filename = 'finalized_model2.sav'
-# pickle.dump(SVC, open(filename, 'wb'))
- 
-# # some time later...
  
 
 import pickle
