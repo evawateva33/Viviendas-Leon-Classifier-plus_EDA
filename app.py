@@ -7,7 +7,7 @@ import pandas as pd  #Pandas for data pre-processing
 
 import pickle
 # Use pickle to load in the pre-trained model.
-with open(f'model/farm2_model_xgboost.pkl', 'rb') as f:
+with open('farm2_model_xgboost.pkl', 'rb') as f:
     model = pickle.load(f)
 
 import flask
