@@ -1,8 +1,7 @@
 
 import pickle 
 import pandas as pd  #Pandas for data pre-processing
-import joblib
-import pickle #Pickle for pickling (saving) the model 
+ #Pickle for pickling (saving) the model 
 
 from sklearn.feature_extraction.text import CountVectorizer #To Vectorize the textual data 
 
