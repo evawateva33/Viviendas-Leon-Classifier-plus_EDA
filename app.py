@@ -1,16 +1,21 @@
-
 import pickle 
 import pandas as pd  #Pandas for data pre-processing
- #Pickle for pickling (saving) the model 
+import joblib
+import pickle #Pickle for pickling (saving) the model 
 
- 
-
+# # some time later...
+import flask
+import numpy as np
+from flask import Flask, request, jsonify, render_template
+import pickle
+import os
+ #app name
 import pickle
 # Use pickle to load in the pre-trained model.
-with open('farm2_model_xgboost.pkl', 'rb') as f:
+with open(f'model/farm2_model_xgboost.pkl', 'rb') as f:
     model = pickle.load(f)
 
-import flask
+
 app = flask.Flask(__name__, template_folder='templates')
 @app.route('/', methods=['GET', 'POST'])
 def main():
