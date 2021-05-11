@@ -1,6 +1,6 @@
 <!doctype html>
 <html>
-<style> 
+<style>
 body {
   background-image: url("https://st.depositphotos.com/1086305/3184/i/600/depositphotos_31843785-stock-photo-traditional-farm.jpg"), url("paper.gif");
   background-color: #cccccc;
@@ -10,60 +10,60 @@ body {
 </style>
 </head>
 <body>
- 
+
 </style>
 <head>
     <title>Crop Predictor</title>
 </head>
 <form action="{{ url_for('main') }}" method="POST">
     <fieldset>
-        <legend><b>Input values:</legend>
+        <legend><b>Input Values:<b> [If answer FALSE enter: "0" and if answer TRUE enter: "1"]</legend>
         <b>% Disease:
         <input name="% Disease" type="number" required>
         <br>
         <br> <b>Wellness_Condition:
         <input name="Wellness_Condition" type="number" required>
         <br>
-        <br> <b>Region_Troilo:
-        <input name="Region_Troilo" type="number" required>
-        <br>
-        <br>
-         <br> <b>HeatIndexC:
+        <br> <b>HeatIndexC:
         <input name="HeatIndexC" type="number" required>
         <br>
         <br>
-          <br>
-         <br> <b>DewPointC:
+        <br> <b>DewPointC:
         <input name="DewPointC" type="number" required>
         <br>
-             <br>
-         <br> <b>WindChillC:
+        <br>
+        <br> <b>WindChillC:
         <input name="WindChillC" type="number" required>
         <br>
-                 <br>
-         <br> sunHour:
+        <br>
+        <br> sunHour:
         <input name="sunHour" type="number" required>
         <br>
-           <br>
-         <br> <b>Season_Fall:
+        <br>
+        <br> <b>Region Troilo<b> [Enter: "0" or "1"]:
+        <input name="Region_Troilo" type="number" required>
+        <br>
+        <br>
+        <br> <b>Season_Fall<b> [Enter: "0" or "1"]:
         <input name="Season_Fall" type="number" required>
         <br>
-              <br>
-         <br> <b>Season_Spring:
+        <br>
+        <br> <b>Season_Spring<b> [Enter: "0" or "1"]:
         <input name="Season_Spring" type="number" required>
         <br>
-
-          <br> <b>Season_Summer:
+        <br>
+        <br> <b>Season_Summer<b> [Enter: "0" or "1"]:
         <input name="Season_Summer" type="number" required>
         <br>
-     
-             <br> <b>Season_Winter:
+        <br>
+        <br> <b>Season_Winter<b> [Enter: "0" or "1"]:
         <input name="Season_Winter" type="number" required>
         <br>
-          <br>
-    
-             <br> <b>Region_Goyena:
+        <br>
+        <br> <b>Region_Goyena [Enter: "0" or "1"]:
         <input name="Region_Goyena" type="number" required>
+        <br>
+        <br>
         <br>
         <input type="submit">
     </fieldset>
