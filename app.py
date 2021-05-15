@@ -59,7 +59,7 @@ def main():
                                                     'Season_Summer':Season_Summer,
                                                     'Season_Winter':Season_Winter,
                                                     'Region_Goyena':Region_Goyena },
-                                     result=prediction,
+                                     result=prediction2,
                                      )
 if __name__ == '__main__':
     app.run()
