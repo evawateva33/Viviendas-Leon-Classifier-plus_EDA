@@ -45,6 +45,7 @@ def main():
                                                 'Region_Troilo'],
                                        dtype=float)
         prediction = model.predict(input_variables)[0]
+        prediction2 = model2.predict(input_variables)[0]
         return flask.render_template('main.html',
                                      original_input={'% Disease': Disease,
                                                      'Wellness_Condition':Wellness_Condition,
@@ -58,7 +59,7 @@ def main():
                                                     'Season_Summer':Season_Summer,
                                                     'Season_Winter':Season_Winter,
                                                     'Region_Goyena':Region_Goyena },
-                                     result=prediction,
+                                     result=prediction2,
                                      )
 if __name__ == '__main__':
     app.run()
