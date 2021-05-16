@@ -12,7 +12,7 @@ import os
  #app name
 import pickle
 # Use pickle to load in the pre-trained model.
-with open(f'model/farm2_model_xgboost.pkl', 'rb') as f:
+with open(f'model/finalized_typemodel.pkl', 'rb') as f:
     model = pickle.load(f)
 #with open(f'model/finalized_cropmodel2.pkl', 'rb') as f:
   #  model2 = pickle.load(f)
