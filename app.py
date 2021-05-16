@@ -12,8 +12,8 @@ import os
  #app name
 import pickle
 # Use pickle to load in the pre-trained model.
-with open(f'model/farm2_model_xgboost.pkl', 'rb') as f:
-    model = pickle.load(f)
+#with open(f'model/farm2_model_xgboost.pkl', 'rb') as f:
+    #model = pickle.load(f)
 with open(f'model/finalized_cropmodel2.pkl', 'rb') as f:
     model2 = pickle.load(f)
 
@@ -44,7 +44,7 @@ def main():
                                                 'Season_Summer', 'Season_Winter', 'Region_Goyena', 
                                                 'Region_Troilo'],
                                        dtype=float)
-        prediction = model.predict(input_variables)[0]
+        #prediction = model.predict(input_variables)[0]
 
 
 
