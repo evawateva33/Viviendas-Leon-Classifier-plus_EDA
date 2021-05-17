@@ -103,7 +103,7 @@ def main():
                   3: 'DewPointC', 4: 'WindChillC', 5: 'sunHour',
                   6: 'Season_Fall', 7: 'Season_Spring', 8: 'Season_Summer',
                   9: 'Season_Winter', 10: 'Region_Goyena', 11: 'Region_Troilo'}
-        some_conditions_df = pd.DataFrame(some_conditions).T.rename(columns=columns_dict)
+        conditions_df = pd.DataFrame(some_conditions).T.rename(columns=columns_dict)
 
 
         type_model = model2.predict(input_variables)[0]
