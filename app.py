@@ -21,22 +21,7 @@ with open(f'model/farm2_model_xgboost.pkl', 'rb') as f:
 app = flask.Flask(__name__, template_folder='templates')
 @app.route('/', methods=['GET', 'POST'])
 
-def get_preds(model, conditions):
-  '''
-  Given model and the user conditions obtain the top class predictions from the model
-  Conditions: '% Disease' (set to 0), 'Wellness_Condition' (set to 100), 
-  'HeatIndexC' (avg 30.74), 'DewPointC' (avg 20.66), 'WindChillC' (avg 28.10), 'sunHour' (avg 10.95), 
-  'Season_Fall', 'Season_Spring', 'Season_Summer', 'Season_Winter', 
-  'Region_Goyena', 'Region_Troilo'
-  '''
-  # if certain conditions aren't given , then default values 
-  target_prediction = model.predict(conditions)
-  class_probas = model.predict_proba(conditions)[0].tolist()
-  model_classes = model.classes_
-  class_probabilities = list(zip(model_classes, class_probas))
-  class_probabilities.sort(reverse=True, key=lambda x:x[1])
-  top_classes = [every[0] for every in class_probabilities[:3]]
-  return top_classes
+
 def remove_low_crops(df):
   '''
   Outputs a dataframe for crop strain modeling without crops with low representaion
@@ -123,14 +108,13 @@ def main():
 
 
         type_model = model2.predict(input_variables)[0]
-          # 4) Call the model
-        crop_preds = get_preds(crop_model, conditions_df)
-        type_preds = get_preds(type_model, conditions_df)
+
         well_classified_crops = class_assessment(crop_model, predictorsc, targetc)
         well_classified_crops.reset_index().rename(columns={'index': 'Crop'})
         well_classified_crops = well_classified_crops.head(3)
-      
-      # 5) Call the scoring system
+    
+
+          # 5) Call the scoring system
         score = init_score(df)
         result = score()
         if Region_Goyena == 1:
@@ -151,10 +135,11 @@ def main():
         if crops_length < 3:
             high_score_crops_2D = []
         for i in range(min(len(high_score_crops, 3 - crops_length))):
-          high_score_crops_2D.append([high_score_crops[i], None])
-        high_score_df = pd.DataFrame(new_high_score_crops, columns=['Crop', 'avg'])
+            high_score_crops_2D.append([high_score_crops[i], None])
+            high_score_df = pd.DataFrame(new_high_score_crops, columns=['Crop', 'avg'])
         well_classified_crops = well_classified_crops.append(high_score_df)
   
+ 
   
         return flask.render_template('main.html',
                                      original_input={'% Disease': Disease,
@@ -169,7 +154,7 @@ def main():
                                                     'Season_Summer':Season_Summer,
                                                     'Season_Winter':Season_Winter,
                                                     'Region_Goyena':Region_Goyena },
-                                     result=[well_classified_crops, prediction2],
+                                     result=[well_classified_crops, type_model],
                                      )
 if __name__ == '__main__':
     app.run()
