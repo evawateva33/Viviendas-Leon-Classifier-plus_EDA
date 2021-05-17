@@ -22,17 +22,6 @@ app = flask.Flask(__name__, template_folder='templates')
 @app.route('/', methods=['GET', 'POST'])
 
 
-def remove_low_crops(df):
-  '''
-  Outputs a dataframe for crop strain modeling without crops with low representaion
-  '''
-  # Getting counts of crops in dataframe
-  crop_counts = df.groupby(['Crop']).size().sort_values(ascending=True)
-  # Selecting index crop names with less than 10 counts
-  low_crops = crop_counts[crop_counts < 10].index.tolist()
-  # filtering dataframe without
-  df_without = df[~df['Crop'].isin(low_crops)]
-  return df_without
 # May want to do this with the whole dataset for maximum representation of imbalanced classes
 # Add argument for Crop_model=True or Type_model=True to get more specific for accuracies desired
 def class_assessment(model, predictors, target):
@@ -85,8 +74,12 @@ def main():
         Region_Troilo = flask.request.form['Region_Troilo']
         df = pd.read_csv('testData/cropvalidation_assessment.csv')
         # 1) Remove the low crops
-        df_less = remove_low_crops(df)
-
+         # Getting counts of crops in dataframe
+        crop_counts = df.groupby(['Crop']).size().sort_values(ascending=True)
+          # Selecting index crop names with less than 10 counts
+        low_crops = crop_counts[crop_counts < 10].index.tolist()
+        # filtering dataframe without
+        df_less = df[~df['Crop'].isin(low_crops)]
         # 2) Train the model
         predictorsc = df_less[['% Disease', 'Wellness_Condition', 'HeatIndexC', 'DewPointC', 'WindChillC', 'sunHour', 'Season_Fall', 'Season_Spring', 'Season_Summer', 'Season_Winter', 'Region_Goyena', 'Region_Troilo']]
         targetc = df_less['Crop']
