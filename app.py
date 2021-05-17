@@ -83,7 +83,7 @@ def main():
         Season_Winter = flask.request.form['Season_Winter']
         Region_Goyena = flask.request.form['Region_Goyena']
         Region_Troilo = flask.request.form['Region_Troilo']
-        df = pd.read_csv('testData/cropvalidation_assessment.csv.csv')
+        df = pd.read_csv('testData/cropvalidation_assessment.csv')
         # 1) Remove the low crops
         df_less = remove_low_crops(df)
 
