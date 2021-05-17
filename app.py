@@ -22,39 +22,6 @@ app = flask.Flask(__name__, template_folder='templates')
 @app.route('/', methods=['GET', 'POST'])
 
 
-# May want to do this with the whole dataset for maximum representation of imbalanced classes
-# Add argument for Crop_model=True or Type_model=True to get more specific for accuracies desired
-def class_assessment(model, predictors, target):
-    '''
-    Assess the roc auc score for all classes. Saves a list of crops with higher roc auc scores
-    Uses: Model, Training set of X & y
-    -- default dict module needed from collections package
-    '''
-    crop_scores = defaultdict(list)
-    classes = model.classes_
-    X_train, X_test, y_train, y_test = train_test_split(predictors.values, target.values, test_size=0.2, shuffle=True)
-    kf = KFold(n_splits=3, random_state=42)
-    for train_ind, val_ind in kf.split(X_train, y_train):
-
-      # Split train into validation sets
-        X_tr, y_tr = X_train[train_ind], y_train[train_ind]
-        X_val, y_val = X_train[val_ind], y_train[val_ind]
-        # Get roc auc score for each crop
-        for each in classes:
-            fpr, tpr, thresholds = roc_curve(y_val,  
-                model.fit(X_tr, y_tr).predict_proba(X_val)[:,1], pos_label = each)
-            auc = round(metrics.auc(fpr, tpr),2)
-            crop_scores[each].append(auc)
-
-        crop_auc = pd.DataFrame.from_dict(crop_scores, orient='index')
-        crop_auc['avg'] = crop_auc.mean(axis=1)
-        
-    crop_auc2 = crop_auc[crop_auc['avg'] > 0.5]
-    crop_auc2.drop(crop_auc.columns[[0, 1, 2]], axis=1, inplace=True)
-    crop_auc2.sort_values(by=['avg'], ascending=False, inplace=True)
-    return crop_auc2
-
-
 
 def main():
     if flask.request.method == 'GET':
