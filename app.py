@@ -88,7 +88,13 @@ def main():
         Season_Winter = flask.request.form['Season_Winter']
         Region_Goyena = flask.request.form['Region_Goyena']
         Region_Troilo = flask.request.form['Region_Troilo']
-        
+        df = pd.read_csv('testData/cropvalidation_assessment.csv.csv')
+        # 1) Remove the low crops
+        df_less = remove_low_crops(df)
+
+        # 2) Train the model
+        predictorsc = df_less[['% Disease', 'Wellness_Condition', 'HeatIndexC', 'DewPointC', 'WindChillC', 'sunHour', 'Season_Fall', 'Season_Spring', 'Season_Summer', 'Season_Winter', 'Region_Goyena', 'Region_Troilo']]
+        targetc = df_less['Crop']
         input_variables = pd.DataFrame([[Disease, Wellness_Condition, HeatIndexC,
                                         DewPointC,WindChillC,sunHour,Season_Fall,Season_Spring
                                          ,Season_Summer,Season_Winter,Region_Goyena,Region_Troilo]],
