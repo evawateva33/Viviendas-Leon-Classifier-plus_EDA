@@ -11,6 +11,7 @@ import pickle
 import os
  #app name
 import pickle
+
 # Use pickle to load in the pre-trained model.
 with open(f'model/farm33_model_xgboost.pkl', 'rb') as f:
     model = pickle.load(f)
@@ -97,7 +98,12 @@ def main():
                                                 'Region_Troilo'],
                                        dtype=float)
         crop_model = model.predict(input_variables)[0]
-
+        some_conditions = [0, 100, 30.74, 20.66, 28.10, 10.95, 0, 0, 0, 0, 0, 0]
+        columns_dict = {0: '% Disease', 1: 'Wellness_Condition', 2: 'HeatIndexC',
+                  3: 'DewPointC', 4: 'WindChillC', 5: 'sunHour',
+                  6: 'Season_Fall', 7: 'Season_Spring', 8: 'Season_Summer',
+                  9: 'Season_Winter', 10: 'Region_Goyena', 11: 'Region_Troilo'}
+        some_conditions_df = pd.DataFrame(some_conditions).T.rename(columns=columns_dict)
 
 
         type_model = model2.predict(input_variables)[0]
