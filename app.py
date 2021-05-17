@@ -48,7 +48,7 @@ def main():
 
 
 
-        #prediction2 = model2.predict(input_variables)[0]        
+       # prediction2 = model2.predict(input_variables)[0]        
         return flask.render_template('main.html',
                                      original_input={'% Disease': Disease,
                                                      'Wellness_Condition':Wellness_Condition,
