@@ -129,10 +129,7 @@ def main():
         well_classified_crops = class_assessment(crop_model, predictorsc, targetc)
         well_classified_crops.reset_index().rename(columns={'index': 'Crop'})
         well_classified_crops = well_classified_crops.head(3)
-        well_classified_categories = class_assessment(type_model, predictorst, targett)
-        well_classified_categories.reset_index().rename(columns={'index': 'Crop Type'})
-        well_classified_categories = well_classified_categories.head(1)
-
+      
       # 5) Call the scoring system
         score = init_score(df)
         result = score()
@@ -158,11 +155,6 @@ def main():
         high_score_df = pd.DataFrame(new_high_score_crops, columns=['Crop', 'avg'])
         well_classified_crops = well_classified_crops.append(high_score_df)
   
-      # 7) Add the results of the crop type scoring if the category DF is 0 in len
-        if len(well_classified_categories) < 1:
-            high_score_types_2D = [[high_score_categories[0], None]]
-            well_classified_categories = pd.DataFrame(high_score_types_2D, columns=['Crop Type', 'avg'])
-  
   
         return flask.render_template('main.html',
                                      original_input={'% Disease': Disease,
@@ -177,7 +169,7 @@ def main():
                                                     'Season_Summer':Season_Summer,
                                                     'Season_Winter':Season_Winter,
                                                     'Region_Goyena':Region_Goyena },
-                                     result=[well_classified_crops, well_classified_categories],
+                                     result=[well_classified_crops, prediction2],
                                      )
 if __name__ == '__main__':
     app.run()
