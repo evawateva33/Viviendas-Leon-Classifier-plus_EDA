@@ -2,7 +2,7 @@ import pickle
 import pandas as pd  #Pandas for data pre-processing
 import joblib
 import pickle #Pickle for pickling (saving) the model 
-
+import xgboost
 # # some time later...
 import flask
 import numpy as np
