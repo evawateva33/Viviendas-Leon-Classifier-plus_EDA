@@ -22,6 +22,7 @@ with open(f'model/farm2_model_xgboost.pkl', 'rb') as f:
 
 app = flask.Flask(__name__, template_folder='templates')
 @app.route('/', methods=['GET', 'POST'])
+import bisect
 
 
 
@@ -69,12 +70,15 @@ def main():
                   9: 'Season_Winter', 10: 'Region_Goyena', 11: 'Region_Troilo'}
         conditions_df = pd.DataFrame(some_conditions).T.rename(columns=columns_dict)
 
-
+    
         type_model = model2.predict(input_variables)[0]
 
         #well_classified_crops = class_assessment(crop_model, predictorsc, targetc)
         crop_scores = defaultdict(list)
-        classes = crop_model.classes_
+        classes = np.array(['Ayote', 'Calala', 'Camote', 'Cebolla', 'Chile', 'Chiltoma',
+       'Frijol de vara', 'Granadilla', 'Guayaba', 'Jamaica', 'Maiz',
+       'Melon', 'Papaya', 'Pepino', 'Pina', 'Pipian', 'Plátano', 'Rábano',
+       'Sandia', 'Tomate', 'Verengena', 'Yuca'])
         X_train, X_test, y_train, y_test = train_test_split(predictorsc.values, targetc.values, test_size=0.2, shuffle=True)
         kf = KFold(n_splits=3, random_state=42)
         for train_ind, val_ind in kf.split(X_train, y_train):
