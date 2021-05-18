@@ -39,7 +39,7 @@ def main():
         Season_Winter = flask.request.form['Season_Winter']
         Region_Goyena = flask.request.form['Region_Goyena']
         Region_Troilo = flask.request.form['Region_Troilo']
-        df = pd.read_csv('testData/vl_geow_f.csv.csv')
+        df = pd.read_csv('testData/vl_geow_f.csv')
    
         # 1) Remove the low crops
          # Getting counts of crops in dataframe
