@@ -13,6 +13,7 @@ import os
 import pickle
 from sklearn.model_selection import train_test_split, KFold, GridSearchCV, RepeatedStratifiedKFold, cross_val_score
 from collections import defaultdict
+from sklearn.metrics import classification_report, roc_auc_score, roc_curve, accuracy_score, confusion_matrix, f1_score, precision_score, recall_score, make_scorer
 
 # Use pickle to load in the pre-trained model.
 with open(f'model/farm33_model_xgboost.pkl', 'rb') as f:
