@@ -11,7 +11,7 @@ import pickle
 import os
  #app name
 import pickle
-import collections
+
 from collections import defaultdict
 
 # Use pickle to load in the pre-trained model.
