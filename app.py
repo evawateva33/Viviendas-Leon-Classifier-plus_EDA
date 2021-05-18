@@ -11,6 +11,8 @@ import pickle
 import os
  #app name
 import pickle
+import collections
+from collections import defaultdict
 
 # Use pickle to load in the pre-trained model.
 with open(f'model/farm33_model_xgboost.pkl', 'rb') as f:
