@@ -22,7 +22,7 @@ with open(f'model/farm2_model_xgboost.pkl', 'rb') as f:
 
 app = flask.Flask(__name__, template_folder='templates')
 @app.route('/', methods=['GET', 'POST'])
-import bisect
+
 
 
 
