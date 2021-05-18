@@ -39,13 +39,8 @@ def main():
         Season_Winter = flask.request.form['Season_Winter']
         Region_Goyena = flask.request.form['Region_Goyena']
         Region_Troilo = flask.request.form['Region_Troilo']
-        df = pd.read_csv('testData/VL_farm_geo_w.csv')
-        df = df.join(pd.get_dummies(df["Season visited"], prefix="Season"), how = 'outer')
-        df = df.join(pd.get_dummies(df["Condition"], prefix="Condition"), how = 'outer')
-        df = df.join(pd.get_dummies(df["Region"], prefix="Region"), how= 'outer')
-        # df = df.join(pd.get_dummies(df["Plague"], prefix="Plague"), how= 'outer')
-        df = df.join(pd.get_dummies(df["location"], prefix="Location"), how = "outer")
-        df = df.join(pd.get_dummies(df["Seedling_or_transplanted"], prefix="Trans_or_seed"), how = "outer")
+        df = pd.read_csv('testData/vl_geow_f.csv.csv')
+   
         # 1) Remove the low crops
          # Getting counts of crops in dataframe
         crop_counts = df.groupby(['Crop']).size().sort_values(ascending=True)
