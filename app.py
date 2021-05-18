@@ -76,9 +76,9 @@ def main():
         #well_classified_crops = class_assessment(crop_model, predictorsc, targetc)
         crop_scores = defaultdict(list)
         classes = np.array(['Ayote', 'Calala', 'Camote', 'Cebolla', 'Chile', 'Chiltoma',
-       'Frijol de vara', 'Granadilla', 'Guayaba', 'Jamaica', 'Maiz',
-       'Melon', 'Papaya', 'Pepino', 'Pina', 'Pipian', 'Plátano', 'Rábano',
-       'Sandia', 'Tomate', 'Verengena', 'Yuca'])
+           'Frijol de vara', 'Granadilla', 'Guayaba', 'Jamaica', 'Maiz',
+           'Melon', 'Papaya', 'Pepino', 'Pina', 'Pipian', 'Plátano', 'Rábano',
+           'Sandia', 'Tomate', 'Verengena', 'Yuca'])
         X_train, X_test, y_train, y_test = train_test_split(predictorsc.values, targetc.values, test_size=0.2, shuffle=True)
         kf = KFold(n_splits=3, random_state=42)
         for train_ind, val_ind in kf.split(X_train, y_train):
