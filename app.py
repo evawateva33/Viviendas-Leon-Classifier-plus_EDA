@@ -88,7 +88,7 @@ def main():
             # Get roc auc score for each crop
             for each in classes:
                 fpr, tpr, thresholds = roc_curve(y_val,  
-                    crop_model.fit(X_tr, y_tr).predict_proba(X_val)[:,1], pos_label = each)
+                    model.fit(X_tr, y_tr).predict_proba(X_val)[:,1], pos_label = each)
                 auc = round(metrics.auc(fpr, tpr),2)
                 crop_scores[each].append(auc)
 
