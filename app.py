@@ -78,7 +78,7 @@ def main():
            'Frijol de vara', 'Granadilla', 'Guayaba', 'Jamaica', 'Maiz',
            'Melon', 'Papaya', 'Pepino', 'Pina', 'Pipian', 'Plátano', 'Rábano',
            'Sandia', 'Tomate', 'Verengena', 'Yuca']
-        X_train, X_test, y_train, y_test = train_test_split(predictorsc.values, targetc.values, test_size=0.2, shuffle=True)
+        X_train, X_test, y_train, y_test = train_test_split(predictorsc.values, targetc.values, test_size=0.2,)
         kf = KFold(n_splits=3, random_state=42)
         for train_ind, val_ind in kf.split(X_train, y_train):
 
@@ -106,30 +106,30 @@ def main():
         well_classified_crops = well_classified_crops.head(3)
 
 
-          # 5) Call the scoring system
-        score = init_score(df)
-        result = score()
-        if Region_Goyena == 1:
-            region = 'Goyena'
-        elif Region_Troilo == 1:
-            region = 'Troilo'
-        else:
-            region = None
-        score_func = init_score(df)
-        result = score_func(region)
-        high_score_crops = result.get_best_composite(n=3)
-        high_score_categories = result.get_best_type_composite(n=1)
-        if high_score_categories[0] == 'Veg':
-            high_score_categories[0] = 'Vegetable'
-
-      # 6) Add the results of the crop scoring to get the crop DF up to 3
-        crops_length = len(well_classified_crops)
-        if crops_length < 3:
-            high_score_crops_2D = []
-        for i in range(min(len(high_score_crops, 3 - crops_length))):
-            high_score_crops_2D.append([high_score_crops[i], None])
-            high_score_df = pd.DataFrame(new_high_score_crops, columns=['Crop', 'avg'])
-        well_classified_crops = well_classified_crops.append(high_score_df)
+      #     # 5) Call the scoring system
+      #   score = init_score(df)
+      #   result = score()
+      #   if Region_Goyena == 1:
+      #       region = 'Goyena'
+      #   elif Region_Troilo == 1:
+      #       region = 'Troilo'
+      #   else:
+      #       region = None
+      #   score_func = init_score(df)
+      #   result = score_func(region)
+      #   high_score_crops = result.get_best_composite(n=3)
+      #   high_score_categories = result.get_best_type_composite(n=1)
+      #   if high_score_categories[0] == 'Veg':
+      #       high_score_categories[0] = 'Vegetable'
+      #
+      # # 6) Add the results of the crop scoring to get the crop DF up to 3
+      #   crops_length = len(well_classified_crops)
+      #   if crops_length < 3:
+      #       high_score_crops_2D = []
+      #   for i in range(min(len(high_score_crops, 3 - crops_length))):
+      #       high_score_crops_2D.append([high_score_crops[i], None])
+      #       high_score_df = pd.DataFrame(new_high_score_crops, columns=['Crop', 'avg'])
+      #   well_classified_crops = well_classified_crops.append(high_score_df)
 
 
 
