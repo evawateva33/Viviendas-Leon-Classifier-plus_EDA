@@ -1,7 +1,7 @@
-import pickle 
+import pickle
 import pandas as pd  #Pandas for data pre-processing
 import joblib
-import pickle #Pickle for pickling (saving) the model 
+import pickle #Pickle for pickling (saving) the model
 import xgboost
 # # some time later...
 import flask
@@ -14,7 +14,7 @@ import pickle
 from sklearn.model_selection import train_test_split, KFold, GridSearchCV, RepeatedStratifiedKFold, cross_val_score
 from collections import defaultdict
 from sklearn.metrics import classification_report, roc_auc_score, roc_curve, accuracy_score, confusion_matrix, f1_score, precision_score, recall_score, make_scorer
-
+from sklearn import metrics
 # Use pickle to load in the pre-trained model.
 with open(f'model/farm333_model_xgboost.pkl', 'rb') as f:
     model = pickle.load(f)
@@ -42,7 +42,7 @@ def main():
         Region_Goyena = flask.request.form['Region_Goyena']
         Region_Troilo = flask.request.form['Region_Troilo']
         df = pd.read_csv('testData/vl_geow_f.csv')
-   
+
         # 1) Remove the low crops
          # Getting counts of crops in dataframe
         crop_counts = df.groupby(['Crop']).size().sort_values(ascending=True)
@@ -56,9 +56,9 @@ def main():
         input_variables = pd.DataFrame([[Disease, Wellness_Condition, HeatIndexC,
                                         DewPointC,WindChillC,sunHour,Season_Fall,Season_Spring
                                          ,Season_Summer,Season_Winter,Region_Goyena,Region_Troilo]],
-                                       columns=['% Disease', 'Wellness_Condition', 'HeatIndexC','DewPointC', 
-                                                'WindChillC', 'sunHour', 'Season_Fall', 'Season_Spring', 
-                                                'Season_Summer', 'Season_Winter', 'Region_Goyena', 
+                                       columns=['% Disease', 'Wellness_Condition', 'HeatIndexC','DewPointC',
+                                                'WindChillC', 'sunHour', 'Season_Fall', 'Season_Spring',
+                                                'Season_Summer', 'Season_Winter', 'Region_Goyena',
                                                 'Region_Troilo'],
                                        dtype=float)
         crop_model = model.predict(input_variables)[0]
@@ -69,7 +69,7 @@ def main():
                   9: 'Season_Winter', 10: 'Region_Goyena', 11: 'Region_Troilo'}
         conditions_df = pd.DataFrame(some_conditions).T.rename(columns=columns_dict)
 
-    
+
         type_model = model2.predict(input_variables)[0]
 
         #well_classified_crops = class_assessment(crop_model, predictorsc, targetc)
@@ -87,24 +87,24 @@ def main():
             X_val, y_val = X_train[val_ind], y_train[val_ind]
             # Get roc auc score for each crop
             for each in classes:
-                fpr, tpr, thresholds = roc_curve(y_val,  
+                fpr, tpr, thresholds = roc_curve(y_val,
                     model.fit(X_tr, y_tr).predict_proba(X_val)[:,1], pos_label = each)
                 auc = round(metrics.auc(fpr, tpr),2)
                 crop_scores[each].append(auc)
 
             crop_auc = pd.DataFrame.from_dict(crop_scores, orient='index')
             crop_auc['avg'] = crop_auc.mean(axis=1)
-        
+
         crop_auc2 = crop_auc[crop_auc['avg'] > 0.5]
         crop_auc2.drop(crop_auc.columns[[0, 1, 2]], axis=1, inplace=True)
         crop_auc2.sort_values(by=['avg'], ascending=False, inplace=True)
         well_classified_crops = crop_auc2
 
 
-        
+
         well_classified_crops.reset_index().rename(columns={'index': 'Crop'})
         well_classified_crops = well_classified_crops.head(3)
-    
+
 
           # 5) Call the scoring system
         score = init_score(df)
@@ -130,9 +130,9 @@ def main():
             high_score_crops_2D.append([high_score_crops[i], None])
             high_score_df = pd.DataFrame(new_high_score_crops, columns=['Crop', 'avg'])
         well_classified_crops = well_classified_crops.append(high_score_df)
-  
- 
-  
+
+
+
         return flask.render_template('main.html',
                                      original_input={'% Disease': Disease,
                                                      'Wellness_Condition':Wellness_Condition,
