@@ -72,39 +72,7 @@ def main():
 
         type_model = model2.predict(input_variables)[0]
 
-        #well_classified_crops = class_assessment(crop_model, predictorsc, targetc)
-        crop_scores = defaultdict(list)
-        classes = ['Ayote', 'Calala', 'Camote', 'Cebolla', 'Chile', 'Chiltoma',
-           'Frijol de vara', 'Granadilla', 'Guayaba', 'Jamaica', 'Maiz',
-           'Melon', 'Papaya', 'Pepino', 'Pina', 'Pipian', 'Plátano', 'Rábano',
-           'Sandia', 'Tomate', 'Verengena', 'Yuca']
-        X_train, X_test, y_train, y_test = train_test_split(predictorsc.values, targetc.values, test_size=0.2,)
-        kf = KFold(n_splits=3)
-        for train_ind, val_ind in kf.split(X_train, y_train):
-
-      # Split train into validation sets
-            X_tr, y_tr = X_train[train_ind], y_train[train_ind]
-            X_val, y_val = X_train[val_ind], y_train[val_ind]
-            # Get roc auc score for each crop
-            for each in classes:
-                fpr, tpr, thresholds = roc_curve(y_val,
-                    model.fit(X_tr, y_tr).predict_proba(X_val)[:,1], pos_label = each)
-                auc = round(metrics.auc(fpr, tpr),2)
-                crop_scores[each].append(auc)
-
-            crop_auc = pd.DataFrame.from_dict(crop_scores, orient='index')
-            crop_auc['avg'] = crop_auc.mean(axis=1)
-
-        crop_auc2 = crop_auc[crop_auc['avg'] > 0.5]
-        crop_auc2.drop(crop_auc.columns[[0, 1, 2]], axis=1, inplace=True)
-        crop_auc2.sort_values(by=['avg'], ascending=False, inplace=True)
-        well_classified_crops = crop_auc2
-
-
-
-        well_classified_crops.reset_index().rename(columns={'index': 'Crop'})
-        well_classified_crops = well_classified_crops.head(3)
-
+    
 
       #     # 5) Call the scoring system
       #   score = init_score(df)
@@ -146,7 +114,7 @@ def main():
                                                     'Season_Summer':Season_Summer,
                                                     'Season_Winter':Season_Winter,
                                                     'Region_Goyena':Region_Goyena },
-                                     result=[well_classified_crops, type_model],
+                                     result=[crop_model, type_model],
                                      )
 if __name__ == '__main__':
     app.run()
