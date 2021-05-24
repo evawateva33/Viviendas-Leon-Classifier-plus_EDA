@@ -79,7 +79,7 @@ def main():
            'Melon', 'Papaya', 'Pepino', 'Pina', 'Pipian', 'Plátano', 'Rábano',
            'Sandia', 'Tomate', 'Verengena', 'Yuca']
         X_train, X_test, y_train, y_test = train_test_split(predictorsc.values, targetc.values, test_size=0.2,)
-        kf = KFold(n_splits=3, random_state=42)
+        kf = KFold(n_splits=3)
         for train_ind, val_ind in kf.split(X_train, y_train):
 
       # Split train into validation sets
