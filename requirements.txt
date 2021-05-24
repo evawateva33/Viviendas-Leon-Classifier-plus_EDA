@@ -1,4 +1,4 @@
-sklearn
+sklearn==0.24.1
 pandas
 dash
 django
