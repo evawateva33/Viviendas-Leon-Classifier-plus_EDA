@@ -5,7 +5,7 @@ django
 dash_building_blocks
 gunicorn
 django-heroku
-Flask==1.1.2 
+Flask==2.3.2 
 joblib==1.0.0 
 numpy==1.19.3 
 scikit-learn==0.24.2
